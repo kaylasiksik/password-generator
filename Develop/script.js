@@ -4,35 +4,86 @@
 
 
 // declare variables for DOM elements 
-const charCount = document.getElementById("charCount")
-const form = document.getElementById("criteriaForm")
-const upperIncl = document.getElementById("upperBool")
-const lowerIncl = document.getElementById("lowerBool")
-const numIncl = document.getElementById("numBool")
-const symbolIncl = document.getElementById("symbolBool")
+const resultEl = document.getElementById("result");
+const lengthEl = document.getElementById("charCount");
+const form = document.getElementById("criteriaForm");
+const upperEl = document.getElementById("upperBool");
+const lowerEl = document.getElementById("lowerBool");
+const numEl = document.getElementById("numBool");
+const symbolEl = document.getElementById("symbolBool");
 
+const generateEl = document.getElementById("generate")
+
+// random values 
+const randomFunc = {
+	lower: getRandLower,
+	upper: getRandUpper,
+	number: getRandNumber,
+	symbol: getRandSymbol
+}
 // add event listeners
-charCount.addEventListener("input")
-form.addEventListener("submit", e => {
-  e.preventDefault()
-  const charCount = charCount.value
-  const upperBool = upperIncl.checked 
-  const lowerBool = lowerIncl.checked 
-  const numBool = numIncl.checked 
-  const symbolBool = symbolIncl.checked 
-  const password = generatePassword(charCount, upperBool, lowerBool, numBool, symbolBool)
-})
 
+generate.addEventListener("click", () => {
+  const charCount = lengthEl.value
+  const upperBool = upperEl.checked 
+  const lowerBool = lowerEl.checked 
+  const numBool = numEl.checked 
+  const symbolBool = symbolEl.checked 
+  resultEl.innerText = generatePassword(lowerBool, upperBool, numBool, symbolBool, charCount)
+});
 
-// function to generate a password 
-function generatePassword(charCount, upperBool, lowerBool, symbolBool) {
-  // code 
+function generatePassword(lower, upper, number, symbol, length) {
+	let generatedPassword = "";
+	const typesCount = lower + upper + number + symbol;
+	const typesArr = [{lower}, {upper}, {number}, {symbol}].filter(item => Object.values(item)[0]);
+	
+	// Doesn't have a selected type
+	if(typesCount === 0) {
+		return '';
+	}
+	
+	// create a loop
+	for(let i=0; i<length; i+=typesCount) {
+		typesArr.forEach(type => {
+			const funcName = Object.keys(type)[0];
+			generatedPassword += randomFunc[funcName]();
+		});
+	}
+	
+	const finalPassword = generatedPassword.slice(0, length);
+	
+	return finalPassword;
+}
+
+function getRandLower() {
+	return String.fromCharCode(Math.floor(Math.random() * 26) + 97);
+}
+
+function getRandUpper() {
+	return String.fromCharCode(Math.floor(Math.random() * 26) + 65);
+}
+
+function getRandNumber() {
+	return +String.fromCharCode(Math.floor(Math.random() * 10) + 48);
+}
+
+function getRandSymbol() {
+	const symbols = '!@#$%^&*(){}[]=<>/,.'
+	return symbols[Math.floor(Math.random() * symbols.length)];
 }
 
 
-// Get references to the #generate element
-var generateBtn = document.querySelector("#generate");
 
+
+
+
+
+
+
+
+// Get references to the #generate element
+//var generate = document.querySelector("#generate");
+/*
 // Write password to the #password input
 function writePassword() {
   var password = generatePassword();

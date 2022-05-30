@@ -23,27 +23,32 @@
 
         <!-- CARD BODY CONTAINER --> 
         <div class="card-body"> 
+          <div class="result-display result" id="displayPassword" aria-label="Generated Password" placeholder="Your Secure Password">
+            <span id="result"></span>
+          </div>
           
-          <form class="card-body" class="form" id="criteriaForm">
+          <form class="form" id="criteriaForm">
             
-            
-            <label for="charCount">Number of Characters</label>
-            <input type="number" min="8" max="128" id="charCount">
-          
+            <div class="setting">
+              <label for="charCount">Number of Characters</label>
+              <input type="number" min="8" max="128" id="charCount">
+            </div>
+            <div class="setting">
             <label for="upperBool">Include Uppercase Letters</label>
-            <input type="checkbox" id="upperBool">
-
-            <label for="lowerBool">Include Lowercase Letters</label>
-            <input type="checkbox" id="lowerBool">
-
-            <label for="numBool">Include Numbers</label>
-            <input type="checkbox" id="numBool">
-
-            <label for="symbolBool">Include Symbols</label>
-            <input type="checkbox" id="symbolBool">
-
-            <textarea id="displayPassword" placeholder="Your Secure Password"
-            aria-label="Generated Password"></textarea>
+            <input type="checkbox" id="upperBool" checked>
+            </div>
+            <div class="setting">
+              <label for="lowerBool">Include Lowercase Letters</label>
+              <input type="checkbox" id="lowerBool" checked>
+            </div>
+            <div class="setting">
+              <label for="numBool">Include Numbers</label>
+              <input type="checkbox" id="numBool" checked>
+            </div>
+            <div class="setting">
+              <label for="symbolBool">Include Symbols</label>
+              <input type="checkbox" id="symbolBool" checked>
+            </div>
           </form>
           
         </div>
@@ -52,7 +57,7 @@
 
         <!-- BUTTON STARTS -->
         <div class="card-footer"> </div><!-- id="popup" -->
-          <button id="generate" type="submit" class="btn">Generate Password</button>
+          <button class="btn" id="generate" type="submit" >Generate Password</button>
         </div>
         <!-- BUTTON END -->
          
